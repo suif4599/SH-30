@@ -1,0 +1,34 @@
+/* Start_0/U */
+FoamFile
+{
+    format      ascii;
+    class       volVectorField;
+    object      U;
+}
+dimensions      [0 1 -1 0 0 0 0];
+internalField   uniform (0 0 0);
+boundaryField
+{
+    left
+    {
+        type            fixedValue;
+        value           uniform (0.5 0 0);
+    }
+    right
+    {
+        type            zeroGradient;
+    }
+    top
+    {
+        type            noSlip;
+    }
+    bottom
+    {
+        type            noSlip;
+    }
+    frontAndBack
+    {
+        type            empty;
+    }
+}
+/* END_0/U */
