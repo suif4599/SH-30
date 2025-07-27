@@ -272,6 +272,38 @@ class FOAMParser:
         """
         if not tokens:
             return {}
+        
+        # Quoted string
+        while True:
+            single_quote = False
+            double_quote = False
+            start = end = -1
+            for i, token in enumerate(tokens):
+                if token.type == TokenType.PUNCTUATION and token.value in ('"', "'"):
+                    if token.value == '"' and not single_quote:
+                        if double_quote:
+                            end = i
+                            break
+                        double_quote = True
+                        start = i + 1
+                    elif token.value == "'" and not double_quote:
+                        if single_quote:
+                            end = i
+                            break
+                        single_quote = True
+                        start = i + 1
+            else:
+                if start >= 0:
+                    raise ValueError("Unmatched quote in input")
+                break
+            # Valid quoted string tokens[start:end]
+            tokens[start - 1: end + 1] = [
+                Token(
+                    TokenType.STRING,
+                    ''.join(str(token.value) for token in tokens[start:end])
+                )
+            ]
+
         # Subdictionary (greedy)
         while True:
             stack_cnt = 0
