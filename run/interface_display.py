@@ -1,9 +1,8 @@
-from interface import Case
+from interface import Case # pyright: ignore[reportAttributeAccessIssue]
 
 if __name__ == "__main__":
-
-# Place the official cavity case in the `${FOAM_RUN}/cavity` directory.
-# It is assumed that this directory and the related files already exist.
+    # Place the official cavity case in the `${FOAM_RUN}/cavity` directory.
+    # It is assumed that this directory and the related files already exist.
 
     print("\n" f"{'CreateCase':=^50}" "\n")
     case = Case("${FOAM_RUN}/cavity")
@@ -38,11 +37,10 @@ if __name__ == "__main__":
     print("\nCase Error:\n")
     print(case.error)
 
-
     print("\n" f"{'Rollback':=^50}" "\n")
     print("Snapshots:")
     print(blockMeshDict.snapshots)
-    blockMeshDict.rollback(blockMeshDict.snapshots[0]) # earliest snapshot
+    blockMeshDict.rollback(blockMeshDict.snapshots[0])  # earliest snapshot
     print("\nRolled Back Content:\n")
     blockMeshDict.delete_snapshots()  # Clean up snapshots after rollback
     print(blockMeshDict.content)

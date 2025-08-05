@@ -1,9 +1,9 @@
 import time
+import os
 from tqdm import tqdm
 from datetime import datetime
 from config_generator import call_llm, write_content_to_file
-from interface import Case
-import os
+from interface import Case # pyright: ignore[reportAttributeAccessIssue]
 
 # function call_llm(Args):
 # boundary_file: the mesh_dict(blockMeshDict or other related files) information to assure the naming consistency
@@ -13,7 +13,12 @@ import os
 # error_information: the error message from the Linux terminal when excuating case calculation.
 
 def run_llm(error_information):
-    with open ("cavity/system/blockMeshDict","r") as file:
+    """
+    Run LLM to generate configuration files for OpenFOAM case.
+    
+    @param error_information: Error information from previous run
+    """
+    with open("cavity/system/blockMeshDict", "r") as file:
         boundary_file = file.read()
     case_description = input("The case description including all initial parameters(Velocity,Pressure,Solver type,Simulation time): ")
     config_type_list = ["p", "U", "transportProperties", "controlDict", "fvSchemes", "fvSolution"]
@@ -30,11 +35,18 @@ def run_llm(error_information):
             "last_version": last_version[i],
             "error_information": error_information
         }
-        response=call_llm(**input_data)
-        write_content_to_file(response,file_location[i])
+        response = call_llm(**input_data)
+        write_content_to_file(response, file_location[i])
         time.sleep(5)
     
 def run_chain(max_attempts=3, delay=5):
+    """
+    Run the OpenFOAM case with automatic retry and error handling.
+    
+    @param max_attempts: Maximum number of attempts
+    @param delay: Delay between attempts in seconds
+    @return: Dictionary containing execution results
+    """
     error_information = None
     case = Case("${FOAM_RUN}/cavity")
     pbar = tqdm(total=max_attempts, desc="Starting", unit="attempt")
@@ -42,15 +54,15 @@ def run_chain(max_attempts=3, delay=5):
     pbar.set_description(f"Attempt {attempts}/{max_attempts}")
     run_llm(str(error_information))
     
-    # 运行一个自动调用openfoam执行脚本的文件
-    # 用while函数判断是否报错(尝试次数小于最大次数)
+    # Run an automated script that calls OpenFOAM execution
+    # Use while loop to check for errors (number of attempts less than maximum attempts)
 
-    while(attempts <= max_attempts):
+    while attempts <= max_attempts:
         pbar.set_description(f"Attempt {attempts}/{max_attempts}")
         case.run()
         error_information = case.error
         # If run successfully:
-        if error_information == None:
+        if error_information is None:
             pbar.set_description("Case is calculated successfully")
             pbar.close()
             break
@@ -61,26 +73,30 @@ def run_chain(max_attempts=3, delay=5):
             attempts += 1
             run_llm(str(error_information))
 
-    if error_information != None:
+    if error_information is not None:
         pbar.set_description("Case calculation failed after maximum attempts")
         pbar.close()
-        return({"output":"Please check the error information and modify the configuration files manually.",
-                "status":"failure",
-                "max_attempts":attempts,
-                "error_information":error_information})
+        return {
+            "output": "Please check the error information and modify the configuration files manually.",
+            "status": "failure",
+            "max_attempts": attempts,
+            "error_information": error_information
+        }
     else:
-        return({"output":"Case is calculated successfully",
-                "status":"success",
-                "max_attempts":attempts})
+        return {
+            "output": "Case is calculated successfully",
+            "status": "success",
+            "max_attempts": attempts
+        }
 
-def run_and_log(max_attempts=3,delay=5,log_file="log/run.log"):
+def run_and_log(max_attempts=3, delay=5, log_file="log/run.log"):
     """
-    Execute script with retries and log essential information
+    Execute script with retries and log essential information.
     
-    Args:
-        script_path: Script to execute
-        max_retries: Maximum retry attempts
-        log_file: Path to log file
+    @param max_attempts: Maximum retry attempts
+    @param delay: Delay between attempts in seconds
+    @param log_file: Path to log file
+    @return: Dictionary containing execution results
     """
     # Ensure log directory exists
     log_dir = os.path.dirname(log_file) or "."
@@ -95,7 +111,7 @@ def run_and_log(max_attempts=3,delay=5,log_file="log/run.log"):
         f.write(f"\n[Run started at {timestamp}] \n")
     
     # Execute with retries
-    result = run_chain(max_attempts=max_attempts,delay=delay)
+    result = run_chain(max_attempts=max_attempts, delay=delay)
     
     # Calculate duration
     duration = time.time() - start_time
@@ -120,8 +136,8 @@ if __name__ == "__main__":
     # max_attempts = int(input("Enter the maximum number of attempts: "))
     # delay = int(input("Enter the delay between attempts (in seconds): "))
     LOG_FILE = "log/run.log"
-    max_attempts=3
-    delay=5
+    max_attempts = 3
+    delay = 5
 
     # Run with monitoring
     result = run_and_log(
