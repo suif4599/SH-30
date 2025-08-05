@@ -150,20 +150,7 @@ Handles OpenFOAM file operations with snapshot and rollback capabilities.
 
 ## Examples
 
-### Example 1: Basic Simulation
-```python
-[EXAMPLE PLACEHOLDER - Basic cavity flow simulation]
-```
-
-### Example 2: Complex Flow Configuration
-```python
-[EXAMPLE PLACEHOLDER - Advanced case with custom boundary conditions]
-```
-
-### Example 3: Error Recovery
-```python
-[EXAMPLE PLACEHOLDER - Demonstration of automatic error correction]
-```
+Unfinished
 
 ## Configuration
 
@@ -172,8 +159,6 @@ Update `config.py` with your LLM API settings:
 
 ```python
 API_KEY = "your-api-key-here"
-BASE_URL = "https://api.siliconflow.cn/v1"
-MODEL = "Qwen/Qwen3-235B-A22B-Instruct-2507"
 ```
 
 ### OpenFOAM Settings
@@ -211,36 +196,6 @@ Log files are stored in the `log/` directory with timestamps and execution detai
 - `FILE_NOT_FOUND`: Missing configuration files
 - `SYNTAX_ERROR`: OpenFOAM syntax errors
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- OpenFOAM Foundation for the CFD toolkit
-- LangChain for LLM integration capabilities
-- Contributors and the open-source community
-
-## Contact
-
-- Project Link: [https://github.com/suif4599/SH-30](https://github.com/suif4599/SH-30)
-- Issues: [https://github.com/suif4599/SH-30/issues](https://github.com/suif4599/SH-30/issues)
-
----
-
-## Roadmap
-
-- [ ] Support for additional CFD solvers
-- [ ] Advanced error diagnosis and correction
-- [ ] Web-based interface
-- [ ] Real-time monitoring dashboard
-- [ ] Integration with more LLM providers
-- [ ] Automated mesh generation capabilities
+This project is licensed under the GPL-v3 License - see the [LICENSE](LICENSE.txt) file for details.

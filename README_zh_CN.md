@@ -150,20 +150,7 @@ write_content_to_file(response, "path/to/config/file")
 
 ## 示例
 
-### 示例 1: 基础仿真
-```python
-[示例占位符 - 基础空腔流动仿真]
-```
-
-### 示例 2: 复杂流动配置
-```python
-[示例占位符 - 带有自定义边界条件的高级算例]
-```
-
-### 示例 3: 错误恢复
-```python
-[示例占位符 - 自动错误纠正演示]
-```
+未完成
 
 ## 配置
 
@@ -211,36 +198,6 @@ export FOAM_RUN=/path/to/your/run/directory
 - `FILE_NOT_FOUND`: 缺少配置文件
 - `SYNTAX_ERROR`: OpenFOAM 语法错误
 
-## 贡献
-
-1. Fork 本仓库
-2. 创建功能分支 (`git checkout -b feature/amazing-feature`)
-3. 提交更改 (`git commit -m 'Add some amazing feature'`)
-4. 推送到分支 (`git push origin feature/amazing-feature`)
-5. 创建 Pull Request
-
 ## 许可证
 
-本项目基于 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件。
-
-## 致谢
-
-- OpenFOAM 基金会提供的 CFD 工具包
-- LangChain 提供的 LLM 集成功能
-- 贡献者和开源社区
-
-## 联系方式
-
-- 项目链接: [https://github.com/suif4599/SH-30](https://github.com/suif4599/SH-30)
-- 问题反馈: [https://github.com/suif4599/SH-30/issues](https://github.com/suif4599/SH-30/issues)
-
----
-
-## 开发路线图
-
-- [ ] 支持更多 CFD 求解器
-- [ ] 高级错误诊断和纠正
-- [ ] Web 界面
-- [ ] 实时监控仪表板
-- [ ] 集成更多 LLM 提供商
-- [ ] 自动网格生成功能
+本项目基于 GPL-v3 许可证 - 详见 [LICENSE](LICENSE.txt) 文件。
