@@ -88,11 +88,11 @@ Provide detailed simulation parameters in natural language:
 [EXAMPLE PLACEHOLDER - To be filled with specific case descriptions]
 
 Example case description format:
-- Fluid properties (density, viscosity)
-- Flow conditions (velocity, pressure)
+- Fluid properties (density, viscosity and temperature if necessary)
+- Flow initial conditions (velocity, pressure and temperature if necessary)
 - Solver type and numerical schemes
-- Boundary conditions
-- Simulation time and convergence criteria
+- Boundary conditions (It should be put at the cavity/system/blockMeshDict)
+- Simulation time, writing interval and convergence criteria
 ```
 
 ### Configuration File Generation
