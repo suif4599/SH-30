@@ -22,7 +22,7 @@ gradSchemes
 divSchemes
 {
     default         none;
-    div(phi,U)      Gauss linear;
+    div(phi,U)      Gauss linearUpwind grad(U);
 }
 
 laplacianSchemes
@@ -43,7 +43,6 @@ snGradSchemes
 fluxRequired
 {
     default         no;
-    p               ;
+    p               yes;
 }
-
 /* END_system/fvSchemes */

@@ -518,7 +518,7 @@ if __name__ == "__main__":
     FoamFile
     {
         version     2.0;
-        format      ascii;
+        format      "ascii";
         class       dictionary;
         object      blockMeshDict;
     }

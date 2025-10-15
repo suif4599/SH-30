@@ -20,9 +20,9 @@ stopAt          endTime;
 
 endTime         10;
 
-deltaT          1e-4;
+deltaT          1e-5;
 
-writeControl    adjustableRunTime;
+writeControl    runTime;
 
 writeInterval   0.1;
 
@@ -42,8 +42,7 @@ runTimeModifiable true;
 
 adjustTimeStep  yes;
 
-maxCo           0.5;
+maxCo           0.3;
 
-maxDeltaT       1e-3;
-
+maxDeltaT       1e-4;
 /* END_system/controlDict */
